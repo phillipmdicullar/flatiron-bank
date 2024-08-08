@@ -1,6 +1,6 @@
 //let us import the required items
 import React, { useEffect, useState } from 'react';
-
+import Search from './Search';
 
 function Transactions() {
     //let us set the state
@@ -13,9 +13,14 @@ useEffect(()=> {
      .catch((error) => console.log(error));
 }, []);
 
-
+  const [query, setQuery] = useState("")
+  const serach_parameters = Object.keys(Object.assign({}, ...transactions));
+  function search(transactions) {
+    return transactions.filter((transactions)=> serach_parameters.some.some((parameter) => transactions[parameter].toString().toLowerCase().includes(query)))
+  }
   return (
     <div className="transactions">
+     <Search/>
       <h2>Transactions</h2>
       <table>
         {/* create headers for each and every thing */}
