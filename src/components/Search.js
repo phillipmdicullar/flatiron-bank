@@ -1,81 +1,57 @@
 import React, { useEffect, useState } from "react";
 
 function App() {
-
+  // State to store the fetched transaction data
   const [data, setData] = useState([]);
 
-  const fetchData = () => {
-
-    return fetch("http://localhost:3000/transactions")
-
-      .then((res) => res.json())
-
-      .then((d) => setData(d));
-
-  };
-
-  useEffect(() => {
-
-    fetchData();
-
-  }, []);
-
+  // State to store the user's search query
   const [query, setQuery] = useState("");
 
+  // Function to fetch data from the server
+  const fetchData = () => {
+    return fetch("http://localhost:3000/transactions") // Fetch data from the server
+      .then((res) => res.json()) // Parse the response as JSON
+      .then((d) => setData(d)); // Update the data state with the fetched data
+  };
+
+  // useEffect hook to fetch data when the component mounts
+  useEffect(() => {
+    fetchData(); // Call fetchData once when the component mounts
+  }, []); // Empty dependency array means this effect runs only once
+
+  // Determine the search parameters from the data keys
   const search_parameters = Object.keys(Object.assign({}, ...data));
 
+  // Function to filter data based on the search query
   function search(data) {
-
     return data.filter((data) =>
-
       search_parameters.some((parameter) =>
-
-        data[parameter].toString().toLowerCase().includes(query)
-
+        data[parameter].toString().toLowerCase().includes(query) // Check if any parameter includes the query
       )
-
     );
-
   }
 
   return (
-
     <div className="container">
-
+      <div className="typewriter">
       <center>
-
         <h1>Please search by placing description</h1>
-
       </center>
-
-      <div className="input-box">
-
-        <input
-
-          type="search"
-
-          name="search-form"
-
-          id="search-form"
-
-          className="search-input"
-
-          onChange={(e) => setQuery(e.target.value)}
-
-          placeholder="Search description: "
-
-        />
-
       </div>
-
+      <div className="input-box">
+        <input
+          type="search"
+          name="search-form"
+          id="search-form"
+          className="search-input"
+          onChange={(e) => setQuery(e.target.value)} // Update the query state on input change
+          placeholder="Search description: " // Placeholder text for the search input
+        />
+      </div>
       <center>
-
         {search(data).map((dataObj) => {
-
           return (
-
-            <div className="box">
-
+            <div className="box" key={dataObj.id}> {/* Added key prop for each item */}
               <thead>
                 <tr>
                   <th>Date</th>
@@ -85,27 +61,19 @@ function App() {
                 </tr>
               </thead>
               <tbody>
-                <tr key={dataObj.id}>
+                <tr>
                   <td>{dataObj.date}</td>
                   <td>{dataObj.description}</td>
                   <td>{dataObj.category}</td>
                   <td>{dataObj.amount}</td>
                 </tr>
-
               </tbody>
-
             </div>
-
           );
-
         })}
-
       </center>
-
     </div>
-
   );
-
 }
 
 export default App;

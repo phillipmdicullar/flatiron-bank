@@ -2,7 +2,7 @@
 import React from 'react';
 import Transactions from './components/Transactions';
 import TransactionForm from './components/TransactionForm';
-import Search from './components/Search';
+// import Search from './components/Search';
 
 function App() {
   return (
