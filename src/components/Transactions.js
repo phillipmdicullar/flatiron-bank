@@ -1,49 +1,66 @@
-//let us import the required items
+// components/Transactions.js
 import React, { useEffect, useState } from 'react';
 import Search from './Search';
+import TransactionForm from './TransactionForm';
 
 function Transactions() {
-    //let us set the state
   const [transactions, setTransactions] = useState([]);
-//fetch data from api endpoint, 
-useEffect(()=> {
-    fetch("http://localhost:3000/transactions")
-     .then((res) => res.json())
-     .then((transactions) => setTransactions(transactions))
-     .catch((error) => console.log(error));
-}, []);
+  const [query, setQuery] = useState("");
 
-  const [query, setQuery] = useState("")
-  const serach_parameters = Object.keys(Object.assign({}, ...transactions));
+  // Fetch data from the API endpoint
+  useEffect(() => {
+    fetch("http://localhost:3000/transactions")
+      .then((res) => res.json())
+      .then((transactions) => setTransactions(transactions))
+      .catch((error) => console.log(error));
+  }, []);
+
+  const searchParameters = Object.keys(Object.assign({}, ...transactions));
   function search(transactions) {
-    return transactions.filter((transactions)=> serach_parameters.some.some((parameter) => transactions[parameter].toString().toLowerCase().includes(query)))
+    return transactions.filter((transaction) =>
+      searchParameters.some((parameter) =>
+        transaction[parameter].toString().toLowerCase().includes(query)
+      )
+    );
   }
+
+  // Handle the addition of a new transaction
+  const handleAddTransaction = (newTransaction) => {
+    setTransactions([...transactions, newTransaction]);
+  };
+
   return (
     <div className="transactions">
-     <Search/>
-      <h2>Transactions</h2>
-      <table>
-        {/* create headers for each and every thing */}
-        <thead>
-          <tr>
-            <th>Date</th>
-            <th>Description</th>
-            <th>Category</th>
-            <th>Amount</th>
-          </tr>
-        </thead>
-        <tbody>
-            {/* lets display our transactions */}
-          {transactions.map(transaction => (
-            <tr key={transaction.id}>
-              <td>{transaction.date}</td>
-              <td>{transaction.description}</td>
-              <td>{transaction.category}</td>
-              <td>{transaction.amount}</td>
+      <Search />
+      <div className="pulse">
+        <h2>Transactions</h2>
+
+        {/* Include the TransactionForm component */}
+        <TransactionForm onAddTransaction={handleAddTransaction} />
+
+        <table>
+          {/* Headers for the table */}
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Description</th>
+              <th>Category</th>
+              <th>Amount</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {/* Display the transactions */}
+            {search(transactions).map((transaction) => (
+              <tr key={transaction.id}>
+                <td>{transaction.date}</td>
+                <td>{transaction.description}</td>
+                <td>{transaction.category}</td>
+                <td>{transaction.amount}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 }
