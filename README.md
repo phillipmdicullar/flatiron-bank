@@ -124,22 +124,10 @@ $cd flatiron-bank-transactions
 ## Install dependencies:
 
 On the commandline type:
-- $npm install
-or
-
-bash
-Copy code:
-- $yarn install
+- npm install or $yarn install
 Start the development server:
 
-bash
-Copy code:
-- $npm start
-or
-
-bash
-Copy code:
-- $yarn start
+- npm start or yarn start
 Your app should now be running on http://localhost:3000.
 
 ## Usage
