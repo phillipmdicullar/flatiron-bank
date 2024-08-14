@@ -9,7 +9,7 @@ function App() {
 
   // Function to fetch data from the server
   const fetchData = () => {
-    return fetch("http://localhost:3000/transactions") // Fetch data from the server
+    return fetch("https://flatiron-backend-virid.vercel.app/transactions") // Fetch data from the server
       .then((res) => res.json()) // Parse the response as JSON
       .then((d) => setData(d)); // Update the data state with the fetched data
   };

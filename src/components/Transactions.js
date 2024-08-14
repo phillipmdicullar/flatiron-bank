@@ -9,7 +9,7 @@ function Transactions() {
 
   // Fetch data from the API endpoint
   useEffect(() => {
-    fetch("http://localhost:3000/transactions")
+    fetch("https://flatiron-backend-virid.vercel.app/transactions")
       .then((res) => res.json())
       .then((transactions) => setTransactions(transactions))
       .catch((error) => console.log(error));

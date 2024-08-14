@@ -130,6 +130,12 @@ Start the development server:
 - npm start or yarn start
 Your app should now be running on http://localhost:3000.
 
+## Running the program
+
+- To run this program you can click on the link below to get to the deployed website
+
+https://flatiron-bank-sage.vercel.app/
+
 ## Usage
 - Viewing Transactions: The home page displays all transactions fetched from the API.
 - Adding Transactions: Use the "Add Transaction" form to create a new transaction. - It will be immediately reflected in the list.

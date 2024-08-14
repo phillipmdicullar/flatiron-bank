@@ -30,7 +30,7 @@ function TransactionForm({ onAddTransaction }) {
         onAddTransaction(newTransactionWithId);
 
         // Optionally send the new transaction to the backend
-        fetch("http://localhost:3000/transactions", {
+        fetch("https://flatiron-backend-virid.vercel.app/transactions", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
