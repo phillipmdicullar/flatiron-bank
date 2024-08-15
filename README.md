@@ -129,6 +129,7 @@ Start the development server:
 
 - npm start or yarn start
 Your app should now be running on http://localhost:3000.
+  U can also use my hosted backend hosted on https://flatiron-backend-virid.vercel.app/transactions
 
 ## Running the program
 
